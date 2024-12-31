@@ -40,12 +40,11 @@ Welcome to the **Weather Forecast App**! This app is built with **Flutter** and 
 1. The app fetches data from the **OpenWeather API** and **Weather API** based on the user's location or manually entered city.  
 2. The **Stacked State Management** package manages view models and app state, ensuring data consistency and UI responsiveness.  
 3. Weather information is displayed in a visually appealing manner, with real-time updates for hourly and weekly forecasts.  
-
 ## Screenshots  
-- **Screen Shot 1** [Click here to view the image](https://github.com/alishah18105/Flutter-Weather-App/blob/main/Screen%20Shots/splashScreen.jpeg)  
-- **Screen Shot 2** [Click here to view the image](https://github.com/alishah18105/Flutter-Weather-App/blob/main/Screen%20Shots/homeScreen1.jpeg)  
-- **Screen Shot 3** [Click here to view the image](https://github.com/alishah18105/Flutter-Weather-App/blob/main/Screen%20Shots/homeScreen2.jpeg)  
-- **Screen Shot 4** [Click here to view the image](https://github.com/alishah18105/Flutter-Weather-App/blob/main/Screen%20Shots/homeScreen3.jpeg)  
+- **Screen Shot 1** [Click here to view the image](https://github.com/alishah18105/Weather-App/blob/main/Screen%20Shots/splashScreen.jpeg)  
+- **Screen Shot 2** [Click here to view the image](https://github.com/alishah18105/Weather-App/blob/main/Screen%20Shots/homeScreen1.jpeg)  
+- **Screen Shot 3** [Click here to view the image](https://github.com/alishah18105/Weather-App/blob/main/Screen%20Shots/homeScreen2.jpeg)  
+- **Screen Shot 4** [Click here to view the image](https://github.com/alishah18105/Weather-App/blob/main/Screen%20Shots/homeScreen3.jpeg)  
 
 ## Credits  
 - **OpenWeather API**  
