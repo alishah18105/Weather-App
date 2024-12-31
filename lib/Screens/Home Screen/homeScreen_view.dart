@@ -93,7 +93,7 @@ class HomeView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("${weatherData["name"]}", style: TextStyle(color: AppColors.white, fontSize: 30)),
+                                    Text("${weatherData["name"]}", style: TextStyle(color: AppColors.white, fontSize: 30,fontWeight: FontWeight.bold)),
                                     SizedBox(height: 10),
                                     Text("Current Weather", style: TextStyle(color: AppColors.lightgrey, fontSize: 15)),
                                     SizedBox(height: 10),
@@ -143,7 +143,7 @@ class HomeView extends StatelessWidget {
                           ),
 
 
-                          SizedBox(height: 16),
+                          SizedBox(height: 20),
 
                           //Additional Information:----------------------------------------------------------------------
                           Text("Additional Information", style: TextStyle(color: AppColors.white, fontSize: 22,fontWeight: FontWeight.bold)),
@@ -230,21 +230,14 @@ class HomeView extends StatelessWidget {
 
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(vertical: 8.0),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF6A4C93), // Container background color
-                                        borderRadius: BorderRadius.circular(12),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            blurRadius: 8,
-                                            offset: Offset(4, 4),
-                                          ),
-                                        ],
-                                      ),
+                                  child: Card(
+                                    color: Color(0xFF6A4C93),
+                                        elevation: 5,
+                                        margin: EdgeInsets.all(10),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                   
                                     child: ListTile(
-                                      contentPadding: EdgeInsets.all(16.0), // Inner padding
+                                      contentPadding: EdgeInsets.all(16.0), 
                                       leading: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
