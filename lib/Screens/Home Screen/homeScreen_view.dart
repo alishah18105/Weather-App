@@ -21,12 +21,18 @@ class HomeView extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, viewModel, child) {
         Map weatherData = viewModel.currentWeatherData;
+        Map hourlyData = viewModel.hourlyWeatherData;
         int celsiusWeather = ((weatherData["main"]?["temp"] ?? 273) - 273).toInt();
         String humidity = (weatherData["main"]?["humidity"] ?? 0.0).toString();
         String wind = (weatherData["wind"]?["speed"] ?? 0.0).toString();
         String precipitation = (weatherData["rain"]?["1h"] ?? 0.0).toString();
         String cloudlines = weatherData["weather"]?[0]["main"] ?? "Clear";
         String animation = viewModel.animation(cloudlines);
+
+        String sunset = (hourlyData ['forecast']?['forecastday'][0]['astro']['sunset'] ?? "0:00 PM").toString();
+        String sunrise = (hourlyData['forecast']?['forecastday'][0]['astro']['sunrise'] ?? "0:00 AM").toString();
+        String clouds = (hourlyData["current"]?["cloud"] ?? "0").toString();
+        String feels = (hourlyData["current"]?["feelslike_c"] ?? "0").toString();
 
         return Scaffold(
           body: Container(
@@ -42,12 +48,18 @@ class HomeView extends StatelessWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 16),
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 5),
                 child: CustomScrollView(
                   slivers: [
                     SliverList(
                       delegate: SliverChildListDelegate(
                         [
+                          Center(child: Container(
+                            height: 100,
+                            width: 150,
+                            child: Image.asset("assets/images/applogo.png"),
+                          )),
+                          SizedBox(height: 25,),
                           TextField(
                             style: TextStyle(color: AppColors.white),
                             controller: viewModel.citySearch,
@@ -102,7 +114,36 @@ class HomeView extends StatelessWidget {
                                     Center(child: Text(cloudlines, style: TextStyle(color: AppColors.lightgrey, fontSize: 20))),
                                   ],
                                 ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 16),
+                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                            CustomInformationContainer(customIcon: Icons.wb_sunny, 
+                            customInformation: "Sunrise", 
+                            customInfoValue: sunrise ),
+
+                            CustomInformationContainer(customIcon: Icons.nights_stay, 
+                            customInformation: "Sunset", 
+                            customInfoValue: sunset),
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+
+                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                            CustomInformationContainer(customIcon: Icons.thermostat, 
+                            customInformation: "Feels Like", 
+                            customInfoValue: "$feels °C"),
+
+                            CustomInformationContainer(customIcon: Icons.cloud, 
+                            customInformation: "Clouds", 
+                            customInfoValue: "$clouds%"),
+                            ],
+                          ),
+
+
+                          SizedBox(height: 16),
 
                           //Additional Information:----------------------------------------------------------------------
                           Text("Additional Information", style: TextStyle(color: AppColors.white, fontSize: 22,fontWeight: FontWeight.bold)),
@@ -122,7 +163,7 @@ class HomeView extends StatelessWidget {
                           SizedBox(height: 30),
 
                           //Hourly Forcast:----------------------------------------------------------------------
-                          Text("Hourly Forcast", style: TextStyle(color: AppColors.white, fontSize: 22,fontWeight: FontWeight.bold)),
+                          Text("Hourly Forecast", style: TextStyle(color: AppColors.white, fontSize: 22,fontWeight: FontWeight.bold)),
                           SizedBox(height: 20),
 
                           viewModel.ishourlyWeatherData ? Center(child: CircularProgressIndicator()) :
@@ -138,30 +179,29 @@ class HomeView extends StatelessWidget {
                                 final temperature = hourData['temp_c'];
                                 return Padding(
                                   padding: const EdgeInsets.only(right: 16.0),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0), // Inner padding
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF6A4C93), // Complementary color to your gradient
-                                      borderRadius: BorderRadius.circular(12), // Rounded corners
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2), // Soft shadow
-                                          blurRadius: 8,
-                                          offset: Offset(4, 4), // Offset for depth
+                                  child: SizedBox(
+                                    width: 100,
+                                    height: 100,
+                                    child: Card(
+                                       color: Color(0xFF6A4C93),
+                                        elevation: 5,
+                                        margin: EdgeInsets.all(10),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                                              
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text('$time',style: TextStyle(color: AppColors.white,)),
+                                            SizedBox(height: 3,),
+                                            Image.network(iconUrl),
+                                            SizedBox(height: 3,),
+                                            Text('$temperature°C',style: TextStyle(color: AppColors.white,)),
+                                    
+                                          ],
                                         ),
-                                      ],
+                                    
                                     ),
-                                    child: Column(
-                                        children: [
-                                          Text('$time',style: TextStyle(color: AppColors.white,)),
-                                          SizedBox(height: 3,),
-                                          Image.network(iconUrl),
-                                          SizedBox(height: 3,),
-                                          Text('$temperature°C',style: TextStyle(color: AppColors.white,)),
-                                  
-                                        ],
-                                      ),
-                                  
                                   ),
                                 );
                         })  ,
@@ -169,7 +209,7 @@ class HomeView extends StatelessWidget {
                           SizedBox(height: 30),
 
                           //7 Days Forcast:----------------------------------------------------------------------
-                          Text("7 Days Forcast", style: TextStyle(color: AppColors.white, fontSize: 22,fontWeight: FontWeight.bold)),
+                          Text("7 Days Forecast", style: TextStyle(color: AppColors.white, fontSize: 22,fontWeight: FontWeight.bold)),
                           SizedBox(height: 20),
 
                           viewModel.isweeklyWeatherData ? Center(child: CircularProgressIndicator()) :
